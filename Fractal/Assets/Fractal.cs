@@ -16,9 +16,7 @@ public class Fractal : MonoBehaviour {
         gameObject.AddComponent<MeshRenderer>().material = material;
         if (depth < maxDepth)
         {
-            new GameObject("Fractal child").AddComponent<Fractal>().Initialize(this, Vector3.up);
-            new GameObject("Fractal child").AddComponent<Fractal>().Initialize(this, Vector3.right);
-
+            StartCoroutine(CreateChildren());
         }
 	}
 	
@@ -26,6 +24,15 @@ public class Fractal : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    private IEnumerator CreateChildren()    //Enumaerators are like iterators
+    {
+        //Yield is used by iterator to track progress.
+        yield return new WaitForSeconds(0.5f);  //Wait for a bit to draw the next part of the fractal
+        new GameObject("Fractal child").AddComponent<Fractal>().Initialize(this, Vector3.up);
+        yield return new WaitForSeconds(0.5f);
+        new GameObject("Fractal child").AddComponent<Fractal>().Initialize(this, Vector3.right);
+    }
 
     private void Initialize (Fractal parent, Vector3 direction)
     {
