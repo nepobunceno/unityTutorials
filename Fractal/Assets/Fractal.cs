@@ -29,12 +29,14 @@ public class Fractal : MonoBehaviour {
     {
         //Yield is used by iterator to track progress.
         yield return new WaitForSeconds(0.5f);  //Wait for a bit to draw the next part of the fractal
-        new GameObject("Fractal child").AddComponent<Fractal>().Initialize(this, Vector3.up);
+        new GameObject("Fractal child").AddComponent<Fractal>().Initialize(this, Vector3.up, Quaternion.identity);
         yield return new WaitForSeconds(0.5f);
-        new GameObject("Fractal child").AddComponent<Fractal>().Initialize(this, Vector3.right);
+        new GameObject("Fractal child").AddComponent<Fractal>().Initialize(this, Vector3.right, Quaternion.Euler(0f, 0f, -90f));
+        yield return new WaitForSeconds(0.5f);
+        new GameObject("Fractal child").AddComponent<Fractal>().Initialize(this, Vector3.left, Quaternion.Euler(0f, 0f, 90f));
     }
 
-    private void Initialize (Fractal parent, Vector3 direction)
+    private void Initialize (Fractal parent, Vector3 direction, Quaternion orientation)
     {
         mesh = parent.mesh;
         material = parent.material;
@@ -44,5 +46,6 @@ public class Fractal : MonoBehaviour {
         childScale = parent.childScale;
         transform.localScale = Vector3.one * childScale;
         transform.localPosition = direction * (0.5f + 0.5f * childScale);
+        transform.localRotation = orientation;
     }
 }
