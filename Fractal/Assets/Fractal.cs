@@ -24,7 +24,7 @@ public class Fractal : MonoBehaviour {
                                                     Quaternion.Euler(-90f, 0f, 0f) };
 
     //Reuse materials
-    private Material[] materials;
+    private Material[,] materials;
 
     // Use this for initialization
     void Start () {
@@ -36,7 +36,7 @@ public class Fractal : MonoBehaviour {
 
         gameObject.AddComponent<MeshFilter>().mesh = mesh;
        
-        gameObject.AddComponent<MeshRenderer>().material = materials[depth];
+        gameObject.AddComponent<MeshRenderer>().material = materials[depth, Random.Range(0,2)];
         
         if (depth < maxDepth)
         {
@@ -63,7 +63,6 @@ public class Fractal : MonoBehaviour {
     {
         mesh = parent.mesh;
         materials = parent.materials;
-        //material = parent.material;
         maxDepth = parent.maxDepth;
         depth = parent.depth + 1;
         transform.parent = parent.transform;
@@ -75,13 +74,20 @@ public class Fractal : MonoBehaviour {
 
     private void InitializeMaterials() 
     {
-        materials = new Material[maxDepth + 1];
+        materials = new Material[maxDepth + 1, 2];
 
         for(int i = 0; i <= maxDepth; i++)
         {
-            materials[i] = new Material(material);
-            materials[i].color = Color.Lerp(Color.yellow, Color.red, (float)i / maxDepth);
+            float t = i / (maxDepth - 1f);
+            t *= t;
+            materials[i, 0] = new Material(material);
+            materials[i, 0].color = Color.Lerp(Color.white, Color.yellow, t);
+            materials[i, 1] = new Material(material);
+            materials[i, 1].color = Color.Lerp(Color.white, Color.cyan, t);
         }
+
+        materials[maxDepth, 0].color = Color.magenta;
+        materials[maxDepth, 1].color = Color.red;
     }
 
 }
