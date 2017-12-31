@@ -12,8 +12,16 @@ public class Fractal : MonoBehaviour {
 
 
     //Positions in array must macht the direction for orientation
-    private static Vector3[] childDirections = { Vector3.up, Vector3.right, Vector3.left, Vector3.forward, Vector3.back };
-    private static Quaternion[] childOrientations = { Quaternion.identity, Quaternion.Euler(0f, 0f, -90f), Quaternion.Euler(0f, 0f, 90f), Quaternion.Euler(90f, 0f, 0f), Quaternion.Euler(-90f, 0f, 0f) };
+    private static Vector3[] childDirections = { Vector3.up,
+                                                Vector3.right,
+                                                Vector3.left,
+                                                Vector3.forward,
+                                                Vector3.back };
+    private static Quaternion[] childOrientations = { Quaternion.identity,
+                                                    Quaternion.Euler(0f, 0f, -90f),
+                                                    Quaternion.Euler(0f, 0f, 90f),
+                                                    Quaternion.Euler(90f, 0f, 0f),
+                                                    Quaternion.Euler(-90f, 0f, 0f) };
 
     //Reuse materials
     private Material[] materials;
@@ -22,9 +30,12 @@ public class Fractal : MonoBehaviour {
     void Start () {
         if(materials == null)
         {
+            Debug.Log("Initializing materials");
             InitializeMaterials();
         }
+
         gameObject.AddComponent<MeshFilter>().mesh = mesh;
+       
         gameObject.AddComponent<MeshRenderer>().material = materials[depth];
         
         if (depth < maxDepth)
@@ -52,7 +63,7 @@ public class Fractal : MonoBehaviour {
     {
         mesh = parent.mesh;
         materials = parent.materials;
-        material = parent.material;
+        //material = parent.material;
         maxDepth = parent.maxDepth;
         depth = parent.depth + 1;
         transform.parent = parent.transform;
@@ -69,7 +80,7 @@ public class Fractal : MonoBehaviour {
         for(int i = 0; i <= maxDepth; i++)
         {
             materials[i] = new Material(material);
-            materials[i].color = Color.Lerp(Color.yellow, Color.red, (float)depth / maxDepth);
+            materials[i].color = Color.Lerp(Color.yellow, Color.red, (float)i / maxDepth);
         }
     }
 
