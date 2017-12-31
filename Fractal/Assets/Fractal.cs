@@ -10,15 +10,23 @@ public class Fractal : MonoBehaviour {
     public int maxDepth;
     private int depth;
 
+
     //Positions in array must macht the direction for orientation
     private static Vector3[] childDirections = { Vector3.up, Vector3.right, Vector3.left, Vector3.forward, Vector3.back };
     private static Quaternion[] childOrientations = { Quaternion.identity, Quaternion.Euler(0f, 0f, -90f), Quaternion.Euler(0f, 0f, 90f), Quaternion.Euler(90f, 0f, 0f), Quaternion.Euler(-90f, 0f, 0f) };
 
+    //Reuse materials
+    private Material[] materials;
+
     // Use this for initialization
     void Start () {
+        if(materials == null)
+        {
+            InitializeMaterials();
+        }
         gameObject.AddComponent<MeshFilter>().mesh = mesh;
-        gameObject.AddComponent<MeshRenderer>().material = material;
-        GetComponent<MeshRenderer>().material.color = Color.Lerp(Color.yellow, Color.red, (float)depth / maxDepth);
+        gameObject.AddComponent<MeshRenderer>().material = materials[depth];
+        
         if (depth < maxDepth)
         {
             StartCoroutine(CreateChildren());
@@ -43,6 +51,7 @@ public class Fractal : MonoBehaviour {
     private void Initialize (Fractal parent, int childIndex)
     {
         mesh = parent.mesh;
+        materials = parent.materials;
         material = parent.material;
         maxDepth = parent.maxDepth;
         depth = parent.depth + 1;
@@ -53,5 +62,15 @@ public class Fractal : MonoBehaviour {
         transform.localRotation = childOrientations[childIndex];
     }
 
-    
+    private void InitializeMaterials() 
+    {
+        materials = new Material[maxDepth + 1];
+
+        for(int i = 0; i <= maxDepth; i++)
+        {
+            materials[i] = new Material(material);
+            materials[i].color = Color.Lerp(Color.yellow, Color.red, (float)depth / maxDepth);
+        }
+    }
+
 }

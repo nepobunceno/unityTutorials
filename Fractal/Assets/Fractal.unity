@@ -253,7 +253,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1610633160}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 10, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -267,6 +267,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1948452764}
+  - component: {fileID: 1948452765}
   m_Layer: 0
   m_Name: Fractal
   m_TagString: Untagged
@@ -287,3 +288,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1948452765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1948452763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de1be0eaf6a6e5f4d980820e44c30f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  childScale: 0.5
+  mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  material: {fileID: 2100000, guid: 02d4b1e190c78664f8bba89a331e942e, type: 2}
+  maxDepth: 4
