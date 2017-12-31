@@ -11,8 +11,8 @@ public class Fractal : MonoBehaviour {
     private int depth;
 
     //Positions in array must macht the direction for orientation
-    private static Vector3[] childDirections = { Vector3.up, Vector3.right, Vector3.left };
-    private static Quaternion[] childOrientations = { Quaternion.identity, Quaternion.Euler(0f, 0f, -90f), Quaternion.Euler(0f, 0f, 90f) };
+    private static Vector3[] childDirections = { Vector3.up, Vector3.right, Vector3.left, Vector3.forward, Vector3.back };
+    private static Quaternion[] childOrientations = { Quaternion.identity, Quaternion.Euler(0f, 0f, -90f), Quaternion.Euler(0f, 0f, 90f), Quaternion.Euler(90f, 0f, 0f), Quaternion.Euler(-90f, 0f, 0f) };
 
     // Use this for initialization
     void Start () {
@@ -31,7 +31,7 @@ public class Fractal : MonoBehaviour {
 
     private IEnumerator CreateChildren()    //Enumaerators are like iterators
     {
-        for(int i =0; i > childDirections.Length; i++)
+        for(int i =0; i < childDirections.Length; i++)
         {
             //Yield is used by iterator to track progress.
             yield return new WaitForSeconds(0.5f);  //Wait for a bit to draw the next part of the fractal
