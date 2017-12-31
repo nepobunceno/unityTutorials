@@ -34,7 +34,7 @@ public class Fractal : MonoBehaviour {
         for(int i =0; i < childDirections.Length; i++)
         {
             //Yield is used by iterator to track progress.
-            yield return new WaitForSeconds(0.5f);  //Wait for a bit to draw the next part of the fractal
+            yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));  //Wait for a random bit to draw the next part of the fractal
             new GameObject("Fractal child").AddComponent<Fractal>().Initialize(this, i);
         }
     }
