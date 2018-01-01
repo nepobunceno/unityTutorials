@@ -5,7 +5,7 @@ using UnityEngine;
 public class Fractal : MonoBehaviour {
 
     public float childScale;
-    public Mesh mesh;
+    public Mesh[] meshes;
     public Material material;
     public int maxDepth;
     private int depth;
@@ -24,7 +24,7 @@ public class Fractal : MonoBehaviour {
                                                     Quaternion.Euler(-90f, 0f, 0f) };
 
     //Reuse materials
-    private Material[,] materials;
+    private Material[,] materials;  //Two dimensional array. 1 for level second for
 
     // Use this for initialization
     void Start () {
@@ -34,7 +34,7 @@ public class Fractal : MonoBehaviour {
             InitializeMaterials();
         }
 
-        gameObject.AddComponent<MeshFilter>().mesh = mesh;
+        gameObject.AddComponent<MeshFilter>().mesh = meshes[Random.Range(0, meshes.Length)];
        
         gameObject.AddComponent<MeshRenderer>().material = materials[depth, Random.Range(0,2)];
         
@@ -61,7 +61,7 @@ public class Fractal : MonoBehaviour {
 
     private void Initialize (Fractal parent, int childIndex)
     {
-        mesh = parent.mesh;
+        meshes = parent.meshes;
         materials = parent.materials;
         maxDepth = parent.maxDepth;
         depth = parent.depth + 1;
