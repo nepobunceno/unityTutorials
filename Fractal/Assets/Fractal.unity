@@ -299,7 +299,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1be0eaf6a6e5f4d980820e44c30f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRotationSpeed: 60
   childScale: 0.5
-  mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  meshes:
+  - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   material: {fileID: 2100000, guid: 02d4b1e190c78664f8bba89a331e942e, type: 2}
   maxDepth: 4

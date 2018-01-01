@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Fractal : MonoBehaviour {
 
+    public float maxRotationSpeed;
     public float childScale;
     public Mesh[] meshes;
     public Material material;
     public int maxDepth;
-    private int depth;
 
+    private int depth;
+    private float rotationSpeed;
 
     //Positions in array must macht the direction for orientation
     private static Vector3[] childDirections = { Vector3.up,
@@ -28,6 +30,8 @@ public class Fractal : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        rotationSpeed = Random.Range(-maxRotationSpeed, maxRotationSpeed);  //Set a rotation speed 
+
         if(materials == null)
         {
             Debug.Log("Initializing materials");
@@ -46,7 +50,7 @@ public class Fractal : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.Rotate(0f, 30f * Time.deltaTime, 0f);
+        transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f);
 	}
 
     private IEnumerator CreateChildren()    //Enumaerators are like iterators
@@ -70,6 +74,7 @@ public class Fractal : MonoBehaviour {
         transform.localScale = Vector3.one * childScale;
         transform.localPosition = childDirections[childIndex] * (0.5f + 0.5f * childScale);
         transform.localRotation = childOrientations[childIndex];
+        maxRotationSpeed = parent.maxRotationSpeed;
     }
 
     private void InitializeMaterials() 
